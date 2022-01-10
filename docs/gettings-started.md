@@ -1,0 +1,2 @@
+# Getting Started with Karrott Engine
+This section will be filled out with basic getting started and tips and tricks for Karrott Engine. I havent got around to writing any of this so expect expansions of this when I get time to do it.
