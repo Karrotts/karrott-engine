@@ -1,2 +1,10 @@
 # Getting Started with Karrott Engine
-This section will be filled out with basic getting started and tips and tricks for Karrott Engine. I havent got around to writing any of this so expect expansions of this when I get time to do it.
+Hello, and welcome to the Karrott Engine documentation. This guide is intended to help you set up Karrott Engine in your Unity project and take you through the different systems within Karrott Engine.
+
+## Installation and Setup
+
+
+## Grid System
+
+
+## Entity System

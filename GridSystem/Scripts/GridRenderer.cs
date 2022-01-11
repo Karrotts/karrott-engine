@@ -40,19 +40,24 @@ namespace KarrottEngine.GridSystem
                     break;
                 case TileType.ATTACK:
                     if (AttackTile)
-                        rendered = Instantiate(MoveTile, tile.Position, Quaternion.identity);
+                        rendered = Instantiate(AttackTile, tile.Position, Quaternion.identity);
                     break;
                 case TileType.PLAYER:
                     if (PlayerTile)
-                        rendered = Instantiate(MoveTile, tile.Position, Quaternion.identity);
+                        rendered = Instantiate(PlayerTile, tile.Position, Quaternion.identity);
                     break;
                 case TileType.ENEMY:
                     if (EnemyTile)
-                        rendered = Instantiate(MoveTile, tile.Position, Quaternion.identity);
+                        rendered = Instantiate(EnemyTile, tile.Position, Quaternion.identity);
                     break;
             }
-            Entity entity = new Entity(rendered, EntityType.TILE);
-            Grid.AddEntity(entity);
+            if (rendered != null) {
+                Entity entity = new Entity(rendered, EntityType.TILE);
+                entity.SpecialType = (int)tile.Type;
+                Grid.AddEntity(entity);
+            }
         }
+
+        public void DestoryGameObject(GameObject gameObject) => Destroy(gameObject);
     }   
 }

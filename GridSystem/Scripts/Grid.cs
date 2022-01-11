@@ -99,6 +99,66 @@ namespace KarrottEngine.GridSystem
         }
 
         /// <summary>
+        /// Deletes a specific entity
+        /// </summary>
+        /// <param name="entity"></param>
+        public static void DeleteEntity(Entity entity)
+        {
+            Renderer.DestoryGameObject(entity.EntityObject);
+            EntityRepository.Remove(entity);
+        }
+
+        /// <summary>
+        /// Deletes all entities with a specific entity type
+        /// </summary>
+        /// <param name="type"></param>
+        public static void DeleteEntitesWithType(EntityType type)
+        {
+            Entity[] entities = GetEntitiesByType(type);
+                for(int i = 0; i < entities.Length; i++) {
+                    if (entities[i] != null)
+                        DeleteEntity(entities[i]);
+                }
+        }
+
+        /// <summary>
+        /// Deletes all entities with a specific entity type and tile type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="tileType"></param>
+        public static void DeleteEntitesWithType(EntityType type, TileType tileType)
+        {
+            Entity[] entities = GetEntitiesByType(type);
+                for(int i = 0; i < entities.Length; i++) {
+                    if (entities[i] != null && entities[i].SpecialType == (int)tileType)
+                        DeleteEntity(entities[i]);
+                }
+        }
+
+        /// <summary>
+        /// Deletes entity at a specific position. Optional parameter to delete all entities at that position.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="deleteAll">Delete all at that position</param>
+        public static void DeleteEntityAtPosition(Vector2 position, bool deleteAll = true)
+        {
+            if (deleteAll) 
+            {
+                Entity[] entities = GetEntitiesAtPosition(position);
+                for(int i = 0; i < entities.Length; i++) {
+                    if (entities[i] != null)
+                        DeleteEntity(entities[i]);
+                }
+            }
+            else
+            {
+                Entity entity = GetEntityAtPosition(position);
+                if (entity != null)
+                    DeleteEntity(entity);
+            }
+        }
+
+        /// <summary>
         /// Checks to see if the provided position is free on the grid.
         /// Free means there is nothing currently in that space.
         /// </summary>
@@ -130,12 +190,10 @@ namespace KarrottEngine.GridSystem
         public static void LoadPattern(int patternId, Vector2 offset)
         {
             List<Tile> tiles = PatternLoader.LoadTiles(patternId, offset);
-            
             foreach (Tile tile in tiles)
             {
                 Renderer.RenderEntityFromTile(tile);
             }
-
         }
 
         /// <summary>
@@ -143,12 +201,15 @@ namespace KarrottEngine.GridSystem
         /// </summary>
         public static void ShowDebugMessage()
         {
-            string mousePosEntity = GetEntityAtPosition(GetMouseGridPosition()) == null ? "None" : GetEntityAtPosition(GetMouseGridPosition()).Type.ToString();
+            Entity entity = GetEntityAtPosition(GetMouseGridPosition());
+            string mousePosEntity = entity == null ? "None" : entity.Type.ToString();
+            string specialType = entity == null || entity.Type != EntityType.TILE ? "None" : "Has Tile Type:" + ((TileType)entity.SpecialType).ToString(); 
             string message = 
                   $"--- Grid System Debug --- \n" 
                 + $"Current Grid Count: {EntityRepository.Count}\n"
                 + $"Mouse Currently At: {GetMouseGridPosition()}\n"
                 + $"Entity at Mouse Position: {mousePosEntity}\n"
+                + $"{specialType}\n"
                 + $"-------------------------";
             Debug.Log(message);
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 namespace KarrottEngine.EntitySystem
 {
@@ -15,6 +16,7 @@ namespace KarrottEngine.EntitySystem
     {
         public GameObject EntityObject { get; }
         public EntityType Type { get; }
+        public int SpecialType { get; set; }
         public Entity(GameObject entityObject, EntityType Type)
         {
             this.EntityObject = entityObject;

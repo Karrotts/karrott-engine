@@ -25,7 +25,7 @@ namespace KarrottEngine.GridSystem
             int x = patternIndex > 9 ? (patternIndex % 10) * 11 : patternIndex * 11;
 
             //Load a Texture2D (Assets/Resources/Data/Move_Patterns.png)
-            Texture2D patterns = Resources.Load<Texture2D>("Data/Move_Patterns");
+            Texture2D patterns = Resources.Load<Texture2D>("Patterns/Move_Patterns");
             List<Tile> Tiles = new List<Tile>();
             for (int i = 0; i < 11; i++) 
             {
