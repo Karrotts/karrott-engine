@@ -8,7 +8,7 @@ namespace KarrottEngine.GridSystem
     /// Grid system entry point, contains all publicly available methods for grid operations 
     /// and contains the grid repository
     /// </summary>
-    public static class Grid
+    public static class KEGrid
     {
         // EntityRepostitory probably should be something more memory efficent
         // for now a generic list will accomplish the job needed of the grid system.
@@ -25,7 +25,6 @@ namespace KarrottEngine.GridSystem
         {
             Vector3 rawMousePosition = Input.mousePosition;
             Vector3 gameworldPosition = Camera.main.ScreenToWorldPoint(rawMousePosition);
-            //gameworldPosition.z = 0;
             return new Vector2(Mathf.Round(gameworldPosition.x), Mathf.Round(gameworldPosition.y));
         }
 
@@ -76,7 +75,8 @@ namespace KarrottEngine.GridSystem
         }
 
         /// <summary>
-        /// Inserts Entity in Repository
+        /// Inserts Entity in Repository. Entity should have an instantiated gameobject.
+        /// If you are trying to add a new gameobject to the grid, use CreateEntity() instead.
         /// </summary>
         /// <param name="position"></param>
         /// <param name="entity"></param>
@@ -177,9 +177,21 @@ namespace KarrottEngine.GridSystem
         /// <param name="postion"></param>
         /// <param name="excludeTypes"></param>
         /// <returns></returns>
-        public static bool IsPositionEmpty(Vector2 postion, string[] excludeTypes)
+        public static bool IsPositionEmpty(Vector2 postion, EntityType[] excludeTypes)
         {
-            return true;
+            Entity[] entities = GetEntitiesAtPosition(postion);
+            int total = entities.Length;
+            foreach(Entity entity in entities) 
+            {
+                foreach (EntityType type in excludeTypes)
+                {
+                    if (entity.Type == type) {
+                        total--;
+                        break;
+                    }
+                }
+            }
+            return total == 0;
         }
 
         /// <summary>
@@ -203,13 +215,13 @@ namespace KarrottEngine.GridSystem
         {
             Entity entity = GetEntityAtPosition(GetMouseGridPosition());
             string mousePosEntity = entity == null ? "None" : entity.Type.ToString();
-            string specialType = entity == null || entity.Type != EntityType.TILE ? "None" : "Has Tile Type:" + ((TileType)entity.SpecialType).ToString(); 
+            string specialType = entity == null || entity.Type != EntityType.TILE ? "None" : ((TileType)entity.SpecialType).ToString(); 
             string message = 
                   $"--- Grid System Debug --- \n" 
                 + $"Current Grid Count: {EntityRepository.Count}\n"
                 + $"Mouse Currently At: {GetMouseGridPosition()}\n"
                 + $"Entity at Mouse Position: {mousePosEntity}\n"
-                + $"{specialType}\n"
+                + $"Has Tile Type: {specialType}\n"
                 + $"-------------------------";
             Debug.Log(message);
         }

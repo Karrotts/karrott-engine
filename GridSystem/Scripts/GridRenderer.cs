@@ -22,7 +22,7 @@ namespace KarrottEngine.GridSystem
         public void RenderEntity(GameObject entityObject, EntityType type, Vector2 position) 
         {
             GameObject entity = Instantiate(entityObject, position, Quaternion.identity);
-            Grid.AddEntity(new Entity(entity, type));
+            KEGrid.AddEntity(new Entity(entity, type));
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace KarrottEngine.GridSystem
             if (rendered != null) {
                 Entity entity = new Entity(rendered, EntityType.TILE);
                 entity.SpecialType = (int)tile.Type;
-                Grid.AddEntity(entity);
+                KEGrid.AddEntity(entity);
             }
         }
 
