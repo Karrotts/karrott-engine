@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace KarrottEngine.GridSystem
 {
     /// <summary>
-    /// 
+    /// Defines the tile type
     /// </summary>
     public enum TileType
     {
@@ -13,14 +15,16 @@ namespace KarrottEngine.GridSystem
     }
 
     /// <summary>
-    /// 
+    /// Provides a data store for the tile type and position
     /// </summary>
     public class Tile 
     {
         public TileType Type { get; }
-        public Tile(TileType type)
+        public Vector2 Position { get; }
+        public Tile(TileType type, Vector2 position)
         {
             this.Type = type;
+            this.Position = position;
         }
     }
 }
