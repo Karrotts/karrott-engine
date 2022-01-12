@@ -46,6 +46,8 @@ namespace KarrottEngine.GridSystem
                         type = TileType.ATTACK;
                     if (pixelColor.Equals(Color.blue))
                         type = TileType.MOVE;
+                    if (pixelColor.Equals(Color.magenta))
+                        type = TileType.PATH;
                     
                     Tiles.Add(new Tile(type, position));
                 }

@@ -11,7 +11,8 @@ namespace KarrottEngine.GridSystem
         PLAYER,
         ENEMY,
         MOVE,
-        ATTACK
+        ATTACK,
+        PATH,
     }
 
     /// <summary>

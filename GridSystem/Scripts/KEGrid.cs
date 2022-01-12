@@ -29,7 +29,7 @@ namespace KarrottEngine.GridSystem
         }
 
         /// <summary>
-        /// Given a position, find that first entity at that position
+        /// Given a position, find that first entity at that position. Returns null if no entity was found.
         /// </summary>
         /// <param name="position"></param>
         /// <returns></returns>
@@ -207,6 +207,18 @@ namespace KarrottEngine.GridSystem
                 Renderer.RenderEntityFromTile(tile);
             }
         }
+
+        /// <summary>
+        /// Finds the nearest possible path between two points
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns>An array in move order</returns>
+        public static Vector2[] FindPath(Vector2 start, Vector2 end)
+        {
+            //TODO
+            return new Vector2[0];
+        } 
 
         /// <summary>
         /// Displays data of the grid system to the debug console.
